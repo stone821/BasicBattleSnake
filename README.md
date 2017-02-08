@@ -2,15 +2,15 @@
 a basic java battle snake
 
 ## Base Technologies
-- Java 8
-- Maven 3.3
-- Servlet 3.0
-- Gson 2.8.0
+- Java 8 SDK - [Link](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- Maven 3.3 - [Link](https://maven.apache.org/download.cgi)
+- Servlet 3.0 - 
+- Gson 2.8.0 - [Link](https://github.com/google/gson)
 
 ## Minimum Requirements to run
-1. Install Java 8 SDK
-2. Install Maven 3.3+
-3. Checkout project
+1. Install Java 8 SDK - [Link](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
+2. Install Maven 3.3+ - [Link](https://maven.apache.org/install.html)
+3. Checkout project from git - [Link](https://guides.github.com/activities/hello-world/)
 4. From project directory that contains the pom.xml, run `mvn jetty:run`
 
 ### Verify running
@@ -41,7 +41,7 @@ a basic java battle snake
 ---
 
 ## Heroku Deployment
-* Coming Soon! *
+*Coming Soon!*
 
 ## Other Handy Tools
 - Postman chrome plugin, for testing web api POST requests
