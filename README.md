@@ -18,6 +18,11 @@ a basic java battle snake
 - [http://localhost:8080/BasicBattleSnake/start](http://localhost:8080/BasicBattleSnake/start)
 - [http://localhost:8080/BasicBattleSnake/move](http://localhost:8080/BasicBattleSnake/move)
 
+#### Expected Response times
+- Tomcat 4-5 ms
+- Jetty 6-7 ms
+
+
 ---
 
 ## More Advanced Requirements to run
@@ -34,6 +39,9 @@ a basic java battle snake
 *Verifications steps should be the same*
 
 ---
+
+## Heroku Deployment
+* Coming Soon! *
 
 ## Other Handy Tools
 - Postman chrome plugin, for testing web api POST requests
