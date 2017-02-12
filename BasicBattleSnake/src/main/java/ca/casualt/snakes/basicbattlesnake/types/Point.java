@@ -13,10 +13,18 @@ public final class Point {
 	private int x;
 	private int y;
 
+	/**
+	 * Default constructor.
+	 */
 	public Point() {
-
 	}
 
+	/**
+	 * Construct a point from a list.<br>
+	 * (commonly seen within the standard json format).
+	 *
+	 * @param toConvert
+	 */
 	public Point(final List<Integer> toConvert) {
 		this.x = toConvert.get(0);
 		this.y = toConvert.get(1);

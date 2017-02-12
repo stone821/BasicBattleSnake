@@ -6,11 +6,12 @@ import java.util.stream.Collectors;
 import com.google.gson.annotations.SerializedName;
 
 /**
+ * A move request.
  *
  * @author Tony
  *
  */
-public class MoveRequest {
+public final class MoveRequest {
 
 	@SerializedName("game_id")
 	private String gameId;
@@ -123,7 +124,7 @@ public class MoveRequest {
 
 	/**
 	 * Convenience getter as list of points.
-	 * 
+	 *
 	 * @return
 	 */
 	public final List<Point> getFoodAsPoints() {

@@ -18,13 +18,34 @@ import ca.casualt.snakes.basicbattlesnake.types.Move;
 import ca.casualt.snakes.basicbattlesnake.types.MoveRequest;
 import ca.casualt.snakes.basicbattlesnake.types.MoveResponse;
 
+/**
+ * This is the servlet that is hit when triggering the /move endpoint.
+ *
+ * @author Tony
+ *
+ */
 @SuppressWarnings("serial")
 @WebServlet("/move")
 public class MoveServlet extends HttpServlet {
 
+	/**
+	 * Used for json serialization/deserialization.
+	 */
 	private final Gson gson = new Gson();
+	/**
+	 * For returning a random response.
+	 */
 	private final Random random = new Random();
 
+	/**
+	 * This handles the stnadard post request, converts the json request body
+	 * into a java object, and creates a random response.
+	 *
+	 * @param req
+	 *            The http request.
+	 * @param resp
+	 *            The http response.
+	 */
 	@Override
 	protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -43,6 +64,10 @@ public class MoveServlet extends HttpServlet {
 		resp.getWriter().println(responseBody);
 	}
 
+	/**
+	 *
+	 * @return A random {@link Move}.
+	 */
 	private Move getRandomMove() {
 		final Move[] values = Move.values();
 		return values[random.nextInt(values.length)];

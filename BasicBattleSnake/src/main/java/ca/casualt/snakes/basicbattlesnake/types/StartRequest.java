@@ -3,16 +3,17 @@ package ca.casualt.snakes.basicbattlesnake.types;
 import com.google.gson.annotations.SerializedName;
 
 /**
+ * A start request.
  *
  * @author Tony
  *
  */
 public final class StartRequest {
 
-	private int height;
-	private int width;
 	@SerializedName("game_id")
 	private String gameId;
+	private int width;
+	private int height;
 
 	/**
 	 * Default constructor.
@@ -21,18 +22,18 @@ public final class StartRequest {
 	}
 
 	/**
-	 * @return the height
+	 * @return the gameId
 	 */
-	public final int getHeight() {
-		return height;
+	public final String getGameId() {
+		return gameId;
 	}
 
 	/**
-	 * @param height
-	 *            the height to set
+	 * @param gameId
+	 *            the gameId to set
 	 */
-	public final void setHeight(final int height) {
-		this.height = height;
+	public final void setGameId(final String gameId) {
+		this.gameId = gameId;
 	}
 
 	/**
@@ -51,18 +52,18 @@ public final class StartRequest {
 	}
 
 	/**
-	 * @return the gameId
+	 * @return the height
 	 */
-	public final String getGameId() {
-		return gameId;
+	public final int getHeight() {
+		return height;
 	}
 
 	/**
-	 * @param gameId
-	 *            the gameId to set
+	 * @param height
+	 *            the height to set
 	 */
-	public final void setGameId(final String gameId) {
-		this.gameId = gameId;
+	public final void setHeight(final int height) {
+		this.height = height;
 	}
 
 	/*

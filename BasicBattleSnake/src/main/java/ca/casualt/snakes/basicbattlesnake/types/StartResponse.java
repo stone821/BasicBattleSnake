@@ -20,7 +20,6 @@ public class StartResponse {
 	 * Default constructor.
 	 */
 	public StartResponse() {
-
 	}
 
 	/**
@@ -95,7 +94,7 @@ public class StartResponse {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -111,7 +110,7 @@ public class StartResponse {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
