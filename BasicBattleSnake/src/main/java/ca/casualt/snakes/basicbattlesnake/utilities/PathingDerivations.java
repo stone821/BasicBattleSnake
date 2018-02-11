@@ -102,7 +102,7 @@ public final class PathingDerivations {
 	 */
 	public static List<Point> moveToViaShortestOpenPath(final MoveRequest initialState, final Point end) {
 		final int[][] boardDistances = infiniteDistanceBoard(initialState);
-		final Point myHead = initialState.getMe().getHead();
+		final Point myHead = initialState.getYou().getHead();
 		boardDistances[myHead.getX()][myHead.getY()] = 0;
 		Queue<Point> pointsToEvaluate = new LinkedList<>();
 		pointsToEvaluate.add(myHead);
@@ -221,12 +221,12 @@ public final class PathingDerivations {
 			final MoveRequestWithPathHistory currentState = toEvaluate.remove();
 			// Get all possible moves
 			List<Move> possibleMoves = RandomMover.getPossibleMoves(currentState.getMoveRequest(),
-					currentState.getMoveRequest().getMe().getHead());
+					currentState.getMoveRequest().getYou().getHead());
 			// For-each move execute on new copy of board, and queue new
 			// board-state for evaluation.
 			for (Move move : possibleMoves) {
 				final MoveRequest newBoard = deriveNewBoardState(currentState.getMoveRequest(), move);
-				final Point latestNewPoint = newBoard.getMe().getHead();
+				final Point latestNewPoint = newBoard.getYou().getHead();
 				final List<Point> newList = new ArrayList<>(currentState.getMoveSequence());
 				newList.add(latestNewPoint);
 				if (latestNewPoint.equals(end)) {
@@ -276,9 +276,9 @@ public final class PathingDerivations {
 
 		// coords returned by reference, any modifications will be reflected in
 		// board state.
-		List<List<Integer>> coordsToMove = toReturn.getMe().getCoords();
-		Point newHeadPoint = pointIfMoveApplied(toReturn.getMe().getHead(), myMove);
-		coordsToMove.add(0, newHeadPoint.toList());
+		List<Point> coordsToMove = toReturn.getYou().getBody();
+		Point newHeadPoint = pointIfMoveApplied(toReturn.getYou().getHead(), myMove);
+		coordsToMove.add(0, newHeadPoint);
 		coordsToMove.remove(coordsToMove.size() - 1);
 
 		return toReturn;

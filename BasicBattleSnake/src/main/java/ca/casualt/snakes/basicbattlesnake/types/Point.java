@@ -33,12 +33,23 @@ public final class Point {
 	}
 
 	/**
+	 * Copy an existing point.
+	 *
+	 * @param toCopy
+	 */
+	public Point(final Point toCopy) {
+		this.x = toCopy.x;
+		this.y = toCopy.y;
+	}
+
+	/**
 	 * Construct a point from a list.<br>
 	 * (commonly seen within the standard json format).
 	 *
 	 * @param toConvert
 	 */
-	public Point(final List<Integer> toConvert) {
+	@Deprecated
+	private Point(final List<Integer> toConvert) {
 		this.x = toConvert.get(0);
 		this.y = toConvert.get(1);
 	}
@@ -47,7 +58,8 @@ public final class Point {
 	 *
 	 * @return the point as a list again.
 	 */
-	public List<Integer> toList() {
+	@Deprecated
+	private List<Integer> toList() {
 		return new ArrayList<>(Arrays.asList(x, y));
 	}
 

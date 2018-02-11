@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import ca.casualt.snakes.basicbattlesnake.types.MoveRequest;
 import ca.casualt.snakes.basicbattlesnake.types.MoveResponse;
+import ca.casualt.snakes.basicbattlesnake.types.serialization.TwentyEighteenJsonHelper;
 import ca.casualt.snakes.basicbattlesnake.utilities.movers.HealthySmartMover;
 import ca.casualt.snakes.basicbattlesnake.utilities.movers.Mover;
 
@@ -53,7 +54,7 @@ public class MoveServlet extends HttpServlet {
 				.collect(Collectors.joining("\n"));
 		System.out.println("Request body:\n" + requestBody);
 
-		final MoveRequest moveRequest = gson.fromJson(requestBody, MoveRequest.class);
+		final MoveRequest moveRequest = parseToMoveRequest(requestBody);
 		System.out.println(moveRequest);
 
 		final MoveResponse moveResponse = new MoveResponse();
@@ -62,6 +63,10 @@ public class MoveServlet extends HttpServlet {
 
 		final String responseBody = gson.toJson(moveResponse);
 		resp.getWriter().println(responseBody);
+	}
+
+	public MoveRequest parseToMoveRequest(final String requestBody) {
+		return gson.fromJson(TwentyEighteenJsonHelper.cleanJson(requestBody), MoveRequest.class);
 	}
 
 }

@@ -27,7 +27,7 @@ public class HealthyRandomMover implements Mover {
 
 	@Override
 	public Move getMove(final MoveRequest moveRequest) {
-		final List<Move> possibleMoves = RandomMover.getPossibleMoves(moveRequest, moveRequest.getMe().getHead());
+		final List<Move> possibleMoves = RandomMover.getPossibleMoves(moveRequest, moveRequest.getYou().getHead());
 		final Move healthyMove = healthMover.getMove(moveRequest);
 		if (possibleMoves.contains(healthyMove)) {
 			return healthyMove;

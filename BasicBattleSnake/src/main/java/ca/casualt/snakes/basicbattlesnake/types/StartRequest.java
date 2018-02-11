@@ -8,12 +8,10 @@ import com.google.gson.annotations.SerializedName;
  * @author Tony
  *
  */
-public final class StartRequest implements BoardSpec {
+public final class StartRequest {
 
 	@SerializedName("game_id")
 	private String gameId;
-	private int width;
-	private int height;
 
 	/**
 	 * Default constructor.
@@ -24,8 +22,7 @@ public final class StartRequest implements BoardSpec {
 	/**
 	 * @return the gameId
 	 */
-	@Override
-	public final String getGameId() {
+	public final String getId() {
 		return gameId;
 	}
 
@@ -37,38 +34,6 @@ public final class StartRequest implements BoardSpec {
 		this.gameId = gameId;
 	}
 
-	/**
-	 * @return the width
-	 */
-	@Override
-	public final int getWidth() {
-		return width;
-	}
-
-	/**
-	 * @param width
-	 *            the width to set
-	 */
-	public final void setWidth(final int width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return the height
-	 */
-	@Override
-	public final int getHeight() {
-		return height;
-	}
-
-	/**
-	 * @param height
-	 *            the height to set
-	 */
-	public final void setHeight(final int height) {
-		this.height = height;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 *
@@ -76,7 +41,7 @@ public final class StartRequest implements BoardSpec {
 	 */
 	@Override
 	public String toString() {
-		return "StartRequest [height=" + height + ", width=" + width + ", gameId=" + gameId + "]";
+		return "StartRequest [gameId=" + gameId + "]";
 	}
 
 	/*
@@ -89,8 +54,6 @@ public final class StartRequest implements BoardSpec {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((gameId == null) ? 0 : gameId.hashCode());
-		result = prime * result + height;
-		result = prime * result + width;
 		return result;
 	}
 
@@ -112,10 +75,6 @@ public final class StartRequest implements BoardSpec {
 			if (other.gameId != null)
 				return false;
 		} else if (!gameId.equals(other.gameId))
-			return false;
-		if (height != other.height)
-			return false;
-		if (width != other.width)
 			return false;
 		return true;
 	}

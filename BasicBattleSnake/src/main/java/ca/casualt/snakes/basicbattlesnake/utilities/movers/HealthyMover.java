@@ -18,8 +18,8 @@ public class HealthyMover implements Mover {
 
 	@Override
 	public Move getMove(final MoveRequest moveRequest) {
-		Point myHead = moveRequest.getMe().getHead();
-		List<PointWithDistance> pointsWithDistance = moveRequest.getFoodAsPoints().stream().map(point -> {
+		Point myHead = moveRequest.getYou().getHead();
+		List<PointWithDistance> pointsWithDistance = moveRequest.getFood().stream().map(point -> {
 			final int distance = PathingDerivations.distanceTo(myHead, point);
 			return new PointWithDistance(point, distance);
 		}).collect(Collectors.toList());

@@ -24,8 +24,8 @@ public class HealthySmartMover implements Mover {
 
 	@Override
 	public Move getMove(final MoveRequest moveRequest) {
-		final Point myHead = moveRequest.getMe().getHead();
-		final List<List<Point>> pointsWithDistance = moveRequest.getFoodAsPoints().stream().map(point -> {
+		final Point myHead = moveRequest.getYou().getHead();
+		final List<List<Point>> pointsWithDistance = moveRequest.getFood().stream().map(point -> {
 			final List<Point> result = PathingDerivations.moveToViaShortestOpenPath(moveRequest, point);
 			return result;
 		}).collect(Collectors.toList());

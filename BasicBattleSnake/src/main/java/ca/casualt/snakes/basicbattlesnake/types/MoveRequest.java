@@ -1,11 +1,7 @@
 package ca.casualt.snakes.basicbattlesnake.types;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import com.google.gson.annotations.SerializedName;
 
 /**
  * A move request.
@@ -15,17 +11,17 @@ import com.google.gson.annotations.SerializedName;
  */
 public final class MoveRequest implements BoardSpec {
 
-	@SerializedName("game_id")
-	private String gameId;
+	private String id;
+	private int turn;
+
+	private Snake you;
+
+	private List<Snake> snakes;
+
 	private int width;
 	private int height;
 
-	private String you;
-	private int turn;
-
-	private List<Snake> snakes;
-	private List<List<Integer>> food;
-	// TODO: left out board for now.
+	private List<Point> food;
 
 	/**
 	 * Default constructor.
@@ -40,44 +36,35 @@ public final class MoveRequest implements BoardSpec {
 	 * @param toCopy
 	 */
 	public MoveRequest(final MoveRequest toCopy) {
-		this.gameId = toCopy.gameId;
+		this.id = toCopy.id;
+		this.turn = toCopy.turn;
+		this.you = new Snake(toCopy.you);
+
 		this.width = toCopy.width;
 		this.height = toCopy.height;
-
-		this.you = toCopy.you;
-		this.turn = toCopy.turn;
 
 		this.snakes = toCopy.snakes.stream().map(snake -> {
 			return new Snake(snake);
 		}).collect(Collectors.toList());
 		this.food = toCopy.food.stream().map(aFood -> {
-			return new ArrayList<>(aFood);
+			return new Point(aFood);
 		}).collect(Collectors.toList());
-	}
-
-	/**
-	 *
-	 * @return me snake.
-	 */
-	public Snake getMe() {
-		Optional<Snake> me = this.getSnakes().stream().filter(snake -> snake.getId().equals(this.getYou())).findFirst();
-		return me.get();
 	}
 
 	/**
 	 * @return the gameId
 	 */
 	@Override
-	public final String getGameId() {
-		return gameId;
+	public final String getId() {
+		return id;
 	}
 
 	/**
 	 * @param gameId
 	 *            the gameId to set
 	 */
-	public final void setGameId(final String gameId) {
-		this.gameId = gameId;
+	public final void setId(final String gameId) {
+		this.id = gameId;
 	}
 
 	/**
@@ -113,9 +100,9 @@ public final class MoveRequest implements BoardSpec {
 	}
 
 	/**
-	 * @return your snake's id.
+	 * @return your snake.
 	 */
-	public final String getYou() {
+	public final Snake getYou() {
 		return you;
 	}
 
@@ -123,7 +110,7 @@ public final class MoveRequest implements BoardSpec {
 	 * @param you
 	 *            the you to set
 	 */
-	public final void setYou(final String you) {
+	public final void setYou(final Snake you) {
 		this.you = you;
 	}
 
@@ -158,18 +145,9 @@ public final class MoveRequest implements BoardSpec {
 	}
 
 	/**
-	 * Convenience getter as list of points.
-	 *
-	 * @return
-	 */
-	public final List<Point> getFoodAsPoints() {
-		return food.stream().map(Point::new).collect(Collectors.toList());
-	}
-
-	/**
 	 * @return the food
 	 */
-	public final List<List<Integer>> getFood() {
+	public final List<Point> getFood() {
 		return food;
 	}
 
@@ -177,7 +155,7 @@ public final class MoveRequest implements BoardSpec {
 	 * @param food
 	 *            the food to set
 	 */
-	public final void setFood(final List<List<Integer>> food) {
+	public final void setFood(final List<Point> food) {
 		this.food = food;
 	}
 
@@ -188,7 +166,7 @@ public final class MoveRequest implements BoardSpec {
 	 */
 	@Override
 	public String toString() {
-		return "MoveRequest [gameId=" + gameId + ", width=" + width + ", height=" + height + ", you=" + you + ", turn="
+		return "MoveRequest [gameId=" + id + ", width=" + width + ", height=" + height + ", you=" + you + ", turn="
 				+ turn + ", snakes=" + snakes + ", food=" + food + "]";
 	}
 
@@ -202,7 +180,7 @@ public final class MoveRequest implements BoardSpec {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((food == null) ? 0 : food.hashCode());
-		result = prime * result + ((gameId == null) ? 0 : gameId.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + height;
 		result = prime * result + ((snakes == null) ? 0 : snakes.hashCode());
 		result = prime * result + turn;
@@ -230,10 +208,10 @@ public final class MoveRequest implements BoardSpec {
 				return false;
 		} else if (!food.equals(other.food))
 			return false;
-		if (gameId == null) {
-			if (other.gameId != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!gameId.equals(other.gameId))
+		} else if (!id.equals(other.id))
 			return false;
 		if (height != other.height)
 			return false;

@@ -29,7 +29,7 @@ public final class RandomMover implements Mover {
 
 	@Override
 	public Move getMove(final MoveRequest moveRequest) {
-		List<Move> possibleMoves = getPossibleMoves(moveRequest, moveRequest.getMe().getHead());
+		List<Move> possibleMoves = getPossibleMoves(moveRequest, moveRequest.getYou().getHead());
 		return getRandomMove(possibleMoves);
 	}
 
@@ -71,7 +71,7 @@ public final class RandomMover implements Mover {
 	 */
 	public static List<Move> deriveOccupiedDirections(final MoveRequest moveRequest, final Point snakeHead) {
 		// System.out.println("snake's head: " + snakeHead);
-		List<Point> allSnakePoints = moveRequest.getSnakes().stream().map(snake -> snake.getCoordsAsPoints())
+		List<Point> allSnakePoints = moveRequest.getSnakes().stream().map(snake -> snake.getBody())
 				.flatMap(List::stream).collect(Collectors.toList());
 		List<Point> allBorderPoints = BoardDerivations.generateBorderPoints(moveRequest);
 		List<Point> allOffLimitsPoints = new ArrayList<>();

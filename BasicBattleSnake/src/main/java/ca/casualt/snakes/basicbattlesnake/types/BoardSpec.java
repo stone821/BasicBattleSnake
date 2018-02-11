@@ -7,7 +7,7 @@ package ca.casualt.snakes.basicbattlesnake.types;
  *
  */
 public interface BoardSpec {
-	String getGameId();
+	String getId();
 
 	int getWidth();
 
