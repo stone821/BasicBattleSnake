@@ -3,7 +3,6 @@ package ca.casualt.snakes.basicbattlesnake;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -14,9 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import ca.casualt.snakes.basicbattlesnake.types.Move;
 import ca.casualt.snakes.basicbattlesnake.types.MoveRequest;
 import ca.casualt.snakes.basicbattlesnake.types.MoveResponse;
+import ca.casualt.snakes.basicbattlesnake.utilities.movers.HealthySmartMover;
+import ca.casualt.snakes.basicbattlesnake.utilities.movers.Mover;
 
 /**
  * This is the servlet that is hit when triggering the /move endpoint.
@@ -33,9 +33,9 @@ public class MoveServlet extends HttpServlet {
 	 */
 	private final Gson gson = new Gson();
 	/**
-	 * For returning a random response.
+	 * For returning a response.
 	 */
-	private final Random random = new Random();
+	private final Mover mover = new HealthySmartMover();
 
 	/**
 	 * This handles the stnadard post request, converts the json request body
@@ -57,19 +57,11 @@ public class MoveServlet extends HttpServlet {
 		System.out.println(moveRequest);
 
 		final MoveResponse moveResponse = new MoveResponse();
-		moveResponse.setMove(getRandomMove());
+		moveResponse.setMove(mover.getMove(moveRequest));
 		moveResponse.setTaunt("Walk the plank you scallywag!");
 
 		final String responseBody = gson.toJson(moveResponse);
 		resp.getWriter().println(responseBody);
 	}
 
-	/**
-	 *
-	 * @return A random {@link Move}.
-	 */
-	private Move getRandomMove() {
-		final Move[] values = Move.values();
-		return values[random.nextInt(values.length)];
-	}
 }

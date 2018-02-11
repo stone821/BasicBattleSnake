@@ -1,5 +1,7 @@
 package ca.casualt.snakes.basicbattlesnake.types;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,6 +22,17 @@ public final class Point {
 	}
 
 	/**
+	 * Convenience constructor.
+	 *
+	 * @param xIn
+	 * @param yIn
+	 */
+	public Point(final int xIn, final int yIn) {
+		this.x = xIn;
+		this.y = yIn;
+	}
+
+	/**
 	 * Construct a point from a list.<br>
 	 * (commonly seen within the standard json format).
 	 *
@@ -28,6 +41,14 @@ public final class Point {
 	public Point(final List<Integer> toConvert) {
 		this.x = toConvert.get(0);
 		this.y = toConvert.get(1);
+	}
+
+	/**
+	 *
+	 * @return the point as a list again.
+	 */
+	public List<Integer> toList() {
+		return new ArrayList<>(Arrays.asList(x, y));
 	}
 
 	/**

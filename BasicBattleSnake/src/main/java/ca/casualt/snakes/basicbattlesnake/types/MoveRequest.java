@@ -1,6 +1,8 @@
 package ca.casualt.snakes.basicbattlesnake.types;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +13,7 @@ import com.google.gson.annotations.SerializedName;
  * @author Tony
  *
  */
-public final class MoveRequest {
+public final class MoveRequest implements BoardSpec {
 
 	@SerializedName("game_id")
 	private String gameId;
@@ -29,12 +31,43 @@ public final class MoveRequest {
 	 * Default constructor.
 	 */
 	public MoveRequest() {
+	}
 
+	/**
+	 * Copy constructor. <br>
+	 * (deep copy).
+	 *
+	 * @param toCopy
+	 */
+	public MoveRequest(final MoveRequest toCopy) {
+		this.gameId = toCopy.gameId;
+		this.width = toCopy.width;
+		this.height = toCopy.height;
+
+		this.you = toCopy.you;
+		this.turn = toCopy.turn;
+
+		this.snakes = toCopy.snakes.stream().map(snake -> {
+			return new Snake(snake);
+		}).collect(Collectors.toList());
+		this.food = toCopy.food.stream().map(aFood -> {
+			return new ArrayList<>(aFood);
+		}).collect(Collectors.toList());
+	}
+
+	/**
+	 *
+	 * @return me snake.
+	 */
+	public Snake getMe() {
+		Optional<Snake> me = this.getSnakes().stream().filter(snake -> snake.getId().equals(this.getYou())).findFirst();
+		return me.get();
 	}
 
 	/**
 	 * @return the gameId
 	 */
+	@Override
 	public final String getGameId() {
 		return gameId;
 	}
@@ -50,6 +83,7 @@ public final class MoveRequest {
 	/**
 	 * @return the width
 	 */
+	@Override
 	public final int getWidth() {
 		return width;
 	}
@@ -65,6 +99,7 @@ public final class MoveRequest {
 	/**
 	 * @return the height
 	 */
+	@Override
 	public final int getHeight() {
 		return height;
 	}
@@ -78,7 +113,7 @@ public final class MoveRequest {
 	}
 
 	/**
-	 * @return the you
+	 * @return your snake's id.
 	 */
 	public final String getYou() {
 		return you;

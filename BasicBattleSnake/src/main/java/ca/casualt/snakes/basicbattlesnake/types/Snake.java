@@ -1,5 +1,6 @@
 package ca.casualt.snakes.basicbattlesnake.types;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,21 @@ public class Snake {
 	 * Default constructor.
 	 */
 	public Snake() {
+	}
+
+	/**
+	 * Copy Constructor.<br>
+	 * (deep copy).
+	 *
+	 * @param toCopy
+	 */
+	public Snake(final Snake toCopy) {
+		this.id = toCopy.id;
+		this.name = toCopy.name;
+		this.healthPoints = toCopy.healthPoints;
+		this.coords = toCopy.coords.stream().map(pair -> {
+			return new ArrayList<>(pair);
+		}).collect(Collectors.toList());
 	}
 
 	/**
@@ -93,6 +109,14 @@ public class Snake {
 	 */
 	public final List<Point> getCoordsAsPoints() {
 		return coords.stream().map(Point::new).collect(Collectors.toList());
+	}
+
+	/**
+	 *
+	 * @return the head is the first point in the list.
+	 */
+	public final Point getHead() {
+		return getCoordsAsPoints().get(0);
 	}
 
 	/**

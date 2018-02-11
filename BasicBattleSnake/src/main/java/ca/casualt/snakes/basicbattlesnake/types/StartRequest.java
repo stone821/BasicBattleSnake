@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * @author Tony
  *
  */
-public final class StartRequest {
+public final class StartRequest implements BoardSpec {
 
 	@SerializedName("game_id")
 	private String gameId;
@@ -24,6 +24,7 @@ public final class StartRequest {
 	/**
 	 * @return the gameId
 	 */
+	@Override
 	public final String getGameId() {
 		return gameId;
 	}
@@ -39,6 +40,7 @@ public final class StartRequest {
 	/**
 	 * @return the width
 	 */
+	@Override
 	public final int getWidth() {
 		return width;
 	}
@@ -54,6 +56,7 @@ public final class StartRequest {
 	/**
 	 * @return the height
 	 */
+	@Override
 	public final int getHeight() {
 		return height;
 	}
