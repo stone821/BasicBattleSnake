@@ -38,8 +38,6 @@ public class MoveServlet extends HttpServlet {
 	 */
 	private final Mover mover = new HealthySmartMover();
 
-	private static Integer lockableThing = new Integer(1);
-
 	/**
 	 * This handles the stnadard post request, converts the json request body
 	 * into a java object, and creates a random response.
@@ -52,20 +50,18 @@ public class MoveServlet extends HttpServlet {
 	@Override
 	protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)
 			throws ServletException, IOException {
-		synchronized (lockableThing) {
-			final String requestBody = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-					.collect(Collectors.joining("\n"));
-			System.out.println("Move Request body: [" + requestBody + "]");
-			final MoveRequest moveRequest = parseToMoveRequest(requestBody);
+		final String requestBody = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+				.collect(Collectors.joining("\n"));
+		System.out.println("Move Request body: [" + requestBody + "]");
+		final MoveRequest moveRequest = parseToMoveRequest(requestBody);
 
-			final MoveResponse moveResponse = new MoveResponse();
-			moveResponse.setMove(mover.getMove(moveRequest));
-			System.out.println("Move to do: " + moveResponse.getMove());
-			moveResponse.setTaunt("Walk the plank you scallywag!");
+		final MoveResponse moveResponse = new MoveResponse();
+		moveResponse.setMove(mover.getMove(moveRequest));
+		System.out.println("Move to do: " + moveResponse.getMove());
+		moveResponse.setTaunt("Walk the plank you scallywag!");
 
-			final String responseBody = gson.toJson(moveResponse);
-			resp.getWriter().println(responseBody);
-		}
+		final String responseBody = gson.toJson(moveResponse);
+		resp.getWriter().println(responseBody);
 	}
 
 	public MoveRequest parseToMoveRequest(final String requestBody) {
