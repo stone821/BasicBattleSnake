@@ -2,13 +2,16 @@ package ca.casualt.snakes.basicbattlesnake.utilities.movers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import ca.casualt.snakes.basicbattlesnake.types.Move;
 import ca.casualt.snakes.basicbattlesnake.types.MoveRequest;
 import ca.casualt.snakes.basicbattlesnake.types.Point;
+import ca.casualt.snakes.basicbattlesnake.types.Snake;
 import ca.casualt.snakes.basicbattlesnake.utilities.BoardDerivations;
 import ca.casualt.snakes.basicbattlesnake.utilities.PathingDerivations;
 
@@ -73,10 +76,22 @@ public final class RandomMover implements Mover {
 		// System.out.println("snake's head: " + snakeHead);
 		List<Point> allSnakePoints = moveRequest.getSnakes().stream().map(snake -> snake.getBody())
 				.flatMap(List::stream).collect(Collectors.toList());
+		// TODO: double check this logic...is it where they are that matters? or
+		// where they end up? (not sure order of moves applied).
+		List<Point> smallerSnakeHeads = moveRequest.getSnakes().stream()
+				.filter(x -> x.getLength() < moveRequest.getYou().getLength()).map(Snake::getBody).map(x -> x.get(0))
+				.collect(Collectors.toList());
 		List<Point> allBorderPoints = BoardDerivations.generateBorderPoints(moveRequest);
-		List<Point> allOffLimitsPoints = new ArrayList<>();
+
+		// System.out.println("snakepoints: " + allSnakePoints);
+		// System.out.println("smallersnakeheadpoints: " + smallerSnakeHeads);
+		// System.out.println("borderpoints: " + allBorderPoints);
+
+		Set<Point> allOffLimitsPoints = new HashSet<>();
 		allOffLimitsPoints.addAll(allSnakePoints);
 		allOffLimitsPoints.addAll(allBorderPoints);
+		allOffLimitsPoints.removeAll(smallerSnakeHeads);
+
 		// System.out.println("offlimits: " + allOffLimitsPoints);
 		return allOffLimitsPoints.stream().filter(PathingDerivations.isAdjacent(snakeHead)).map(point -> {
 			// System.out.println("adjacent offlimits: " + point);

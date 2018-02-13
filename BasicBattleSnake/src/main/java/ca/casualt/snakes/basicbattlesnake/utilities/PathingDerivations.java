@@ -126,7 +126,7 @@ public final class PathingDerivations {
 		// Work way backwards to 0
 		List<Point> pathHome = new ArrayList<>();
 		final int endScore = getScore(boardDistances, end);
-		System.out.println("Distance to end point is: " + endScore);
+		// System.out.println("Distance to end point is: " + endScore);
 		// If we can't reach the end point then its score will be Integer.Max
 		// still
 		if (endScore != Integer.MAX_VALUE) {
@@ -142,8 +142,8 @@ public final class PathingDerivations {
 			}
 			Collections.reverse(pathHome);
 		}
-		System.out.println("My head = " + myHead);
-		System.out.println("Path to point = " + pathHome);
+		// System.out.println("My head = " + myHead);
+		// System.out.println("Path to point = " + pathHome);
 		return pathHome;
 	}
 

@@ -15,6 +15,10 @@ import ca.casualt.snakes.basicbattlesnake.utilities.PathingDerivations;
  *
  */
 public class HealthySmartMover implements Mover {
+	/**
+	 * Helper for when other logic fails/doesn't know what to do.
+	 */
+	private final RandomMover randomMover = new RandomMover();
 
 	/**
 	 * Default Constructor.
@@ -32,8 +36,25 @@ public class HealthySmartMover implements Mover {
 		pointsWithDistance.sort((p1, p2) -> {
 			return p1.size() - p2.size();
 		});
-		// should be adjacent
-		final Point firstStep = pointsWithDistance.get(0).get(0);
-		return PathingDerivations.directionTo(myHead, firstStep);
+
+		if (pointsWithDistance.isEmpty() || pointsWithDistance.get(0).isEmpty()) {
+			return getFallbackGoal(moveRequest);
+		} else {
+			// Derived goal should be adjacent
+			final Point firstStep = pointsWithDistance.get(0).get(0);
+			return PathingDerivations.directionTo(myHead, firstStep);
+		}
+	}
+
+	/**
+	 * Currently, fallback to random mover.<br>
+	 * TODO: refine this.
+	 *
+	 * @param moveRequest
+	 * @return
+	 */
+	private Move getFallbackGoal(final MoveRequest moveRequest) {
+		System.out.println("Performing fallback...");
+		return randomMover.getMove(moveRequest);
 	}
 }

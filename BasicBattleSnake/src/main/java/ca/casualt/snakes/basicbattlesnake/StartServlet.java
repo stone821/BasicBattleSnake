@@ -46,13 +46,11 @@ public class StartServlet extends HttpServlet {
 			throws ServletException, IOException {
 		final String requestBody = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
 				.collect(Collectors.joining("\n"));
-		System.out.println("Request body:\n" + requestBody);
-
+		System.out.println("Start Request body: [" + requestBody + "]");
 		final StartRequest startRequest = gson.fromJson(requestBody, StartRequest.class);
-		System.out.println(startRequest);
 
 		final StartResponse startResponse = new StartResponse();
-		startResponse.setColor("black");
+		startResponse.setColor("blue");
 		startResponse.setHeadUrl("http://i.imgur.com/JyoU2DD.png?1");
 		startResponse.setName("BasicSnake");
 		startResponse.setTaunt("Yarrrrrr!");
