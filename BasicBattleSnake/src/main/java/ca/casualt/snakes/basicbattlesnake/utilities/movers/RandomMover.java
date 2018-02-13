@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import ca.casualt.snakes.basicbattlesnake.types.Move;
 import ca.casualt.snakes.basicbattlesnake.types.MoveRequest;
 import ca.casualt.snakes.basicbattlesnake.types.Point;
-import ca.casualt.snakes.basicbattlesnake.types.Snake;
 import ca.casualt.snakes.basicbattlesnake.utilities.BoardDerivations;
 import ca.casualt.snakes.basicbattlesnake.utilities.PathingDerivations;
 
@@ -59,10 +58,8 @@ public final class RandomMover implements Mover {
 	 */
 	public static List<Move> getPossibleMoves(final MoveRequest moveRequest, final Point snakeHead) {
 		final List<Move> occupiedDirections = deriveOccupiedDirections(moveRequest, snakeHead);
-		// System.out.println("occupied directions: " + occupiedDirections);
 		final List<Move> values = new ArrayList<>(Arrays.asList(Move.values()));
 		values.removeAll(occupiedDirections);
-		// System.out.println("possible directions: " + values);
 		return values;
 	}
 
@@ -73,28 +70,15 @@ public final class RandomMover implements Mover {
 	 * @return
 	 */
 	public static List<Move> deriveOccupiedDirections(final MoveRequest moveRequest, final Point snakeHead) {
-		// System.out.println("snake's head: " + snakeHead);
 		List<Point> allSnakePoints = moveRequest.getSnakes().stream().map(snake -> snake.getBody())
 				.flatMap(List::stream).collect(Collectors.toList());
-		// TODO: double check this logic...is it where they are that matters? or
-		// where they end up? (not sure order of moves applied).
-		List<Point> smallerSnakeHeads = moveRequest.getSnakes().stream()
-				.filter(x -> x.getLength() < moveRequest.getYou().getLength()).map(Snake::getBody).map(x -> x.get(0))
-				.collect(Collectors.toList());
 		List<Point> allBorderPoints = BoardDerivations.generateBorderPoints(moveRequest);
-
-		// System.out.println("snakepoints: " + allSnakePoints);
-		// System.out.println("smallersnakeheadpoints: " + smallerSnakeHeads);
-		// System.out.println("borderpoints: " + allBorderPoints);
 
 		Set<Point> allOffLimitsPoints = new HashSet<>();
 		allOffLimitsPoints.addAll(allSnakePoints);
 		allOffLimitsPoints.addAll(allBorderPoints);
-		allOffLimitsPoints.removeAll(smallerSnakeHeads);
 
-		// System.out.println("offlimits: " + allOffLimitsPoints);
 		return allOffLimitsPoints.stream().filter(PathingDerivations.isAdjacent(snakeHead)).map(point -> {
-			// System.out.println("adjacent offlimits: " + point);
 			return PathingDerivations.directionTo(snakeHead, point);
 		}).collect(Collectors.toList());
 	}

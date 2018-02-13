@@ -16,8 +16,8 @@ import com.google.gson.Gson;
 import ca.casualt.snakes.basicbattlesnake.types.MoveRequest;
 import ca.casualt.snakes.basicbattlesnake.types.MoveResponse;
 import ca.casualt.snakes.basicbattlesnake.types.serialization.TwentyEighteenJsonHelper;
-import ca.casualt.snakes.basicbattlesnake.utilities.movers.HealthySmartMover;
 import ca.casualt.snakes.basicbattlesnake.utilities.movers.Mover;
+import ca.casualt.snakes.basicbattlesnake.utilities.movers.RandomMover;
 
 /**
  * This is the servlet that is hit when triggering the /move endpoint.
@@ -36,7 +36,7 @@ public class MoveServlet extends HttpServlet {
 	/**
 	 * For returning a response.
 	 */
-	private final Mover mover = new HealthySmartMover();
+	private final Mover mover = new RandomMover();
 
 	/**
 	 * This handles the stnadard post request, converts the json request body
